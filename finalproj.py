@@ -75,7 +75,7 @@ class tttRules:
         if full==9:
             self.continueGame=False
             self.draw+=1
-        if self.checkforWin('x')==True:
+        elif self.checkforWin('x')==True:
             self.continueGame=False
             self.win1+=1
 
@@ -93,7 +93,7 @@ class tttRules:
         if full==9:
             self.continueGame=False
             self.draw+=1
-        if self.checkforWin('o')==True:
+        elif self.checkforWin('o')==True:
             self.continueGame=False
             self.win2+=1
 
@@ -119,18 +119,17 @@ class tttRules:
             return True
         else:
             return False
-#print (gameboard.board)
-#print (gameboard.board[2][2])
-newboard=gameboard()
-#newboard.printboard()
-newboard.clearBoard()
+
+print("This is tictactoe ")
 newgame=tttRules()
-#newgame.tttboard.printboard()
+keepPlaying=True
+while keepPlaying==True:
+    newgame.play()
+    newgame.displayScore()
+    if input("Play again?:")=='y':
+        keepPlaying==True
+    else:
+        keepPlaying=False
+print("Thanks for playing:")
 newgame.displayScore()
-newgame.play()
-newgame.tttboard.printboard()
-newgame.turn1()
-newgame.tttboard.printboard()
-newgame.turn2()
-newgame.tttboard.printboard()
 
