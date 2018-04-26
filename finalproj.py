@@ -1,3 +1,4 @@
+import argparse
 class gameboard:
     board=[[' ' for i in range(3)] for i in range(3)]
     def printboard(self):
@@ -136,7 +137,7 @@ class tttRules:
             score = 10
         elif self.checkforWin('o'):
             score = -10
-        elif len(moves) == 0:
+        elif len(availablemoves) == 0:
             score=0
         print(score)
         move=[]
@@ -145,16 +146,22 @@ class tttRules:
         #fc+=1
 
 
-print("This is tictactoe ")
-newgame=tttRules()
-keepPlaying=True
-while keepPlaying==True:
-    newgame.play()
-    newgame.displayScore()
-    if input("Play again?:")=='y':
-        keepPlaying==True
-    else:
-        keepPlaying=False
-print("Thanks for playing:")
-newgame.displayScore()
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("num", help = "The postition you want to use.",type = int) #Suppose to print out help message
+    args = parser.parse_args()
 
+    print("This is tictactoe ")
+    newgame=tttRules()
+    keepPlaying=True
+    while keepPlaying==True:
+        newgame.play()
+        newgame.displayScore()
+        if input("Play again?:")=='y':
+            keepPlaying==True
+        else:
+            keepPlaying=False
+    print("Thanks for playing:")
+    newgame.displayScore()
+if __name__ == "__Main__":
+    Main()
