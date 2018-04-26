@@ -1,7 +1,5 @@
 class gameboard:
     board=[[' ' for i in range(3)] for i in range(3)]
-    #def __init__(self):
-        #board=[['o' for i in range(3)] for i in range(3)]
     def printboard(self):
         for y,yvalue in enumerate(self.board):
             for x,xvalue in enumerate(self.board):
@@ -51,7 +49,8 @@ class tttRules:
 
     def play(self):
         self.tttboard.clearBoard()
-        self.tttboard.printboard()
+        self.setCount()
+        #self.tttboard.printboard()
         self.continueGame=True
         while self.continueGame==True:
             self.checkTurn()
@@ -62,6 +61,7 @@ class tttRules:
             self.turn2()
         self.tttboard.printboard()
     def turn1(self):
+        self.possibleMoves()
         full=0
         spaceTaken=False
         while spaceTaken==False:
@@ -82,6 +82,7 @@ class tttRules:
     def turn2(self):
         full=0
         spaceTaken=False
+        self.minimax()
         while spaceTaken==False:
             space=input("Player 2, make move:")
             spaceTaken=self.tttboard.setChar('o',space)
@@ -119,6 +120,30 @@ class tttRules:
             return True
         else:
             return False
+    def possibleMoves(self):
+        posMoves=[]
+        for x in range(0,3):
+            for y in range(0,3):
+                if self.tttboard.board[x][y]==" ":
+                    #print(str(x)+str(y))
+                    posMoves.append(str(x)+str(y))
+        print(posMoves)
+        return posMoves
+    def minimax(self):
+        availablemoves=self.possibleMoves()
+        score=0
+        if self.checkforWin('o'):
+            score = 10
+        elif self.checkforWin('o'):
+            score = -10
+        elif len(moves) == 0:
+            score=0
+        print(score)
+        move=[]
+
+
+        #fc+=1
+
 
 print("This is tictactoe ")
 newgame=tttRules()
