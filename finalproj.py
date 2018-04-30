@@ -1,3 +1,4 @@
+import argparse
 class gameboard:
     board=[[' ' for i in range(3)] for i in range(3)]
     def printboard(self):
@@ -141,6 +142,7 @@ class tttRules:
         print(posMoves)
         print("WORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONE")
         return posMoves
+<<<<<<< HEAD
     def returnbestmove(self,tempBoard):
         bestScore=-1000
         for x in possibleMoves(tempBoard):
@@ -154,6 +156,19 @@ class tttRules:
     def minimax(self,tempBoard,currentPlayer):
         #availablemoves=self.possibleMoves()
         #print(tempBoard.board)
+=======
+    def minimax(self):
+        availablemoves=self.possibleMoves()
+        score=0
+        if self.checkforWin('o'):
+            score = 10
+        elif self.checkforWin('o'):
+            score = -10
+        elif len(availablemoves) == 0:
+            score=0
+        print(score)
+        move=[]
+>>>>>>> origin/master
 
         availablemoves=possibleMoves(tempBoard)
         #print("length"+str(len(availablemoves)))
@@ -222,16 +237,22 @@ def checkforwin(tboard,player):
         return True
     return False
 
-print("This is tictactoe ")
-newgame=tttRules()
-keepPlaying=True
-while keepPlaying==True:
-    newgame.play()
-    newgame.displayScore()
-    if input("Play again?:")=='y':
-        keepPlaying==True
-    else:
-        keepPlaying=False
-print("Thanks for playing:")
-newgame.displayScore()
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("num", help = "The postition you want to use.",type = int) #Suppose to print out help message
+    args = parser.parse_args()
 
+    print("This is tictactoe ")
+    newgame=tttRules()
+    keepPlaying=True
+    while keepPlaying==True:
+        newgame.play()
+        newgame.displayScore()
+        if input("Play again?:")=='y':
+            keepPlaying==True
+        else:
+            keepPlaying=False
+    print("Thanks for playing:")
+    newgame.displayScore()
+if __name__ == "__Main__":
+    Main()
