@@ -1,4 +1,3 @@
-import argparse
 class gameboard:
     board=[[' ' for i in range(3)] for i in range(3)]
     def printboard(self):
@@ -76,7 +75,9 @@ class tttRules:
 
         #print(checkforwin(self.tttboard,'x'))
         #print(self.checkforWin('x'))
-        if self.checkforWin('x')==True:
+        print(checkforwin(self.tttboard,'x'))
+        if checkforwin(self.tttboard,'x')==True:
+            print("game should end")
             self.continueGame=False
             self.win1+=1
         elif full==9:
@@ -88,6 +89,8 @@ class tttRules:
         move=self.returnbestmove(self.tttboard)
         self.tttboard.setChar('o',move)
         self.count+=1
+        print(checkforwin(self.tttboard,'o'))
+        print("itshoul")
     def turn3(self):
         full=0
         spaceTaken=False
@@ -142,7 +145,6 @@ class tttRules:
         print(posMoves)
         print("WORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONE")
         return posMoves
-<<<<<<< HEAD
     def returnbestmove(self,tempBoard):
         bestScore=-1000
         for x in possibleMoves(tempBoard):
@@ -156,19 +158,6 @@ class tttRules:
     def minimax(self,tempBoard,currentPlayer):
         #availablemoves=self.possibleMoves()
         #print(tempBoard.board)
-=======
-    def minimax(self):
-        availablemoves=self.possibleMoves()
-        score=0
-        if self.checkforWin('o'):
-            score = 10
-        elif self.checkforWin('o'):
-            score = -10
-        elif len(availablemoves) == 0:
-            score=0
-        print(score)
-        move=[]
->>>>>>> origin/master
 
         availablemoves=possibleMoves(tempBoard)
         #print("length"+str(len(availablemoves)))
@@ -237,22 +226,16 @@ def checkforwin(tboard,player):
         return True
     return False
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("num", help = "The postition you want to use.",type = int) #Suppose to print out help message
-    args = parser.parse_args()
-
-    print("This is tictactoe ")
-    newgame=tttRules()
-    keepPlaying=True
-    while keepPlaying==True:
-        newgame.play()
-        newgame.displayScore()
-        if input("Play again?:")=='y':
-            keepPlaying==True
-        else:
-            keepPlaying=False
-    print("Thanks for playing:")
+print("This is tictactoe ")
+newgame=tttRules()
+keepPlaying=True
+while keepPlaying==True:
+    newgame.play()
     newgame.displayScore()
-if __name__ == "__Main__":
-    Main()
+    if input("Play again?:")=='y':
+        keepPlaying==True
+    else:
+        keepPlaying=False
+print("Thanks for playing:")
+newgame.displayScore()
+
