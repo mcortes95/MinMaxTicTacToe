@@ -59,8 +59,9 @@ class tttRules:
         else:
             self.turn2()
         self.tttboard.printboard()
+        #self.tttboard.printboard()
     def turn1(self):
-        possibleMoves(self.tttboard)
+        #possibleMoves(self.tttboard)
         full=0
         spaceTaken=False
         while spaceTaken==False:
@@ -71,13 +72,9 @@ class tttRules:
             for y in range(0,3):
                 if self.tttboard.board[x][y]!=" ":
                     full+=1
-        #print(full)
 
-        #print(checkforwin(self.tttboard,'x'))
-        #print(self.checkforWin('x'))
-        print(checkforwin(self.tttboard,'x'))
-        if checkforwin(self.tttboard,'x')==True:
-            print("game should end")
+
+        if checkforwin(self.tttboard,'x'):
             self.continueGame=False
             self.win1+=1
         elif full==9:
@@ -85,66 +82,22 @@ class tttRules:
             self.draw+=1
 
     def turn2(self):
-        #move=self.minimax(self.tttboard,'o')
+        print("Minimax")
         move=self.returnbestmove(self.tttboard)
         self.tttboard.setChar('o',move)
         self.count+=1
-        print(checkforwin(self.tttboard,'o'))
-        print("itshoul")
-    def turn3(self):
         full=0
-        spaceTaken=False
-        self.minimax(self.tttboard,'o')
-        while spaceTaken==False:
-            space=input("Player 2, make move:")
-            spaceTaken=self.tttboard.setChar('o',space)
-        self.count+=1
         for x in range(0,3):
             for y in range(0,3):
                 if self.tttboard.board[x][y]!=" ":
                     full+=1
-        if full==9:
-            self.continueGame=False
-            self.draw+=1
-        elif checkforwin(self.tttboard,'o')==True:
+        if checkforwin(self.tttboard,'o'):
             self.continueGame=False
             self.win2+=1
-        #elif self.checkforWin('o')==True:
-         #   self.continueGame=False
-         #   self.win2+=1
+        elif full==9:
+            self.continueGame=False
+            self.draw+=1
 
-    def checkforWin(self,player):
-        parseShit=0
-        if self.tttboard.board[parseShit][parseShit]==player:
-            if self.tttboard.board[parseShit][parseShit+1]==player and self.tttboard.board[parseShit][parseShit+2]==player:
-                return True
-            elif self.tttboard.board[parseShit+1][parseShit+1]==player and self.tttboard.board[parseShit+2][parseShit+2]==player:
-                return True
-            elif self.tttboard.board[parseShit+1][parseShit]==player and self.tttboard.board[parseShit+2][parseShit]==player:
-                return True
-        elif self.tttboard.board[parseShit+2][parseShit+2]==player:
-            if self.tttboard.board[parseShit+2][parseShit+1]==player and self.tttboard.board[parseShit+2][parseShit]==player:
-                return True
-            elif self.tttboard.board[parseShit+1][parseShit+2]==player and self.tttboard.board[parseShit][parseShit+2]==player:
-                return True
-        elif self.tttboard.board[parseShit][parseShit+1]==player and self.tttboard.board[parseShit+1][parseShit+1]==player and self.tttboard.board[parseShit+2][parseShit+1]==player:
-            return True
-        elif self.tttboard.board[parseShit+1][parseShit]==player and self.tttboard.board[parseShit+1][parseShit+1]==player and self.tttboard.board[parseShit+1][parseShit+2]==player:
-            return True
-        elif self.tttboard.board[parseShit+2][parseShit]==player and  self.tttboard.board[parseShit+1][parseShit+1]==player and self.tttboard.board[parseShit][parseShit+2]==player:
-            return True
-        return False
-
-    def possibleMoves(self):
-        posMoves=[]
-        for x in range(0,3):
-            for y in range(0,3):
-                if self.tttboard.board[x][y]==" ":
-                    #print(str(x)+str(y))
-                    posMoves.append(str(x)+str(y))
-        print(posMoves)
-        print("WORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONEWORNGONE")
-        return posMoves
     def returnbestmove(self,tempBoard):
         bestScore=-1000
         for x in possibleMoves(tempBoard):
@@ -155,15 +108,10 @@ class tttRules:
                 bestMove=x
                 bestScore=moveScore
         return bestMove
-    def minimax(self,tempBoard,currentPlayer):
-        #availablemoves=self.possibleMoves()
-        #print(tempBoard.board)
 
+    def minimax(self,tempBoard,currentPlayer):
         availablemoves=possibleMoves(tempBoard)
-        #print("length"+str(len(availablemoves)))
-        #print(availablemoves)
-        #print("LOSS=================================================LOSS=================================================")
-        movescore=0
+        #checks for terminal state and returns heuristic value
         if checkforwin(tempBoard,'o'):
             #print("10")
             return 10
@@ -173,7 +121,6 @@ class tttRules:
         elif len(availablemoves) == 0:
             #print("zero moves left")
             return 0
-
 
         if currentPlayer=='o':
             bestscore=-1000
@@ -205,24 +152,25 @@ def possibleMoves(tboard):
     #print(posMoves)
     return posMoves
 def checkforwin(tboard,player):
+    #print(tboard.board[0][0])
     parseShit=0
-    if tboard.board[parseShit][parseShit]==player:
-        if tboard.board[parseShit][parseShit+1]==player and tboard.board[parseShit][parseShit+2]==player:
+    if tboard.board[0][0]==player:
+        if tboard.board[0][1]==player and tboard.board[0][2]==player:
             return True
-        elif tboard.board[parseShit+1][parseShit+1]==player and tboard.board[parseShit+2][parseShit+2]==player:
+        if tboard.board[1][1]==player and tboard.board[2][2]==player:
             return True
-        elif tboard.board[parseShit+1][parseShit]==player and tboard.board[parseShit+2][parseShit]==player:
+        if tboard.board[1][0]==player and tboard.board[2][0]==player:
             return True
-    elif tboard.board[parseShit+2][parseShit+2]==player:
-        if tboard.board[parseShit+2][parseShit+1]==player and tboard.board[parseShit+2][parseShit]==player:
+    if tboard.board[2][2]==player:
+        if tboard.board[2][1]==player and tboard.board[2][0]==player:
             return True
-        elif tboard.board[parseShit+1][parseShit+2]==player and tboard.board[parseShit][parseShit+2]==player:
+        if tboard.board[1][2]==player and tboard.board[0][2]==player:
             return True
-    elif tboard.board[parseShit][parseShit+1]==player and tboard.board[parseShit+1][parseShit+1]==player and tboard.board[parseShit+2][parseShit+1]==player:
+    if tboard.board[0][1]==player and tboard.board[1][1]==player and tboard.board[2][1]==player:
         return True
-    elif tboard.board[parseShit+1][parseShit]==player and tboard.board[parseShit+1][parseShit+1]==player and tboard.board[parseShit+1][parseShit+2]==player:
+    if tboard.board[1][0]==player and tboard.board[1][1]==player and tboard.board[1][2]==player:
         return True
-    elif tboard.board[parseShit+2][parseShit]==player and tboard.board[parseShit+1][parseShit+1]==player and tboard.board[parseShit][parseShit+2]==player:
+    if tboard.board[2][0]==player and tboard.board[1][1]==player and tboard.board[0][2]==player:
         return True
     return False
 
@@ -236,6 +184,6 @@ while keepPlaying==True:
         keepPlaying==True
     else:
         keepPlaying=False
-print("Thanks for playing:")
+print("Thanks for playing:\n")
 newgame.displayScore()
 
