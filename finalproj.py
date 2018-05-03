@@ -1,3 +1,9 @@
+import argparse
+#!/usr/bin/env python3
+"""TicTacToe with Minimax"""
+__author__="Marco A Cortes | Andrew Envia"
+
+
 class gameboard:
     board=[[' ' for i in range(3)] for i in range(3)]
     def printboard(self):
@@ -25,13 +31,18 @@ class gameboard:
         self.board[int(pos[0])][int(pos[1])]=player
 
     def setChar(self,player,pos):
-        if self.board[int(pos[0])][int(pos[1])]!=" ":
-            self.printboard()
-            print("Space taken")
+        try:
+            if self.board[int(pos[0])][int(pos[1])]!=" ":
+                self.printboard()
+                print("Space taken")
+                return False
+            else:
+                self.board[int(pos[0])][int(pos[1])]=player
+                return True
+        except:
+            print("!!Reminder!!\n!!Move position for both integers must be between 0 and 2!!\n!!Example: for bottom right slot, input '22'!!")
             return False
-        else:
-            self.board[int(pos[0])][int(pos[1])]=player
-            return True
+
 class tttRules:
     count=0
     tttboard=gameboard()
@@ -113,13 +124,10 @@ class tttRules:
         availablemoves=possibleMoves(tempBoard)
         #checks for terminal state and returns heuristic value
         if checkforwin(tempBoard,'o'):
-            #print("10")
             return 10
         elif checkforwin(tempBoard,'x'):
-            #print("-10")
             return -10
         elif len(availablemoves) == 0:
-            #print("zero moves left")
             return 0
 
         if currentPlayer=='o':
@@ -174,16 +182,31 @@ def checkforwin(tboard,player):
         return True
     return False
 
-print("This is tictactoe ")
-newgame=tttRules()
-keepPlaying=True
-while keepPlaying==True:
-    newgame.play()
+def start():
+    print("This is tictactoe ")
+    newgame=tttRules()
+    keepPlaying=True
+    while keepPlaying==True:
+        newgame.play()
+        newgame.displayScore()
+        if input("Play again?:")=='y':
+            keepPlaying=True
+        else:
+            keepPlaying=False
+    print("Thanks for playing:\n")
     newgame.displayScore()
-    if input("Play again?:")=='y':
-        keepPlaying==True
-    else:
-        keepPlaying=False
-print("Thanks for playing:\n")
-newgame.displayScore()
+
+parser = argparse.ArgumentParser()
+parser.add_argument("argument", help="Use argument 'help' for instructions.\nUse argument 'start' to start the game.")
+args = parser.parse_args()
+#print(args.argument)
+if args.argument=="help":
+    print("\n\nThis is a game of Tic Tac Toe played against the minimax algorithm.\nWhen prompted, you will input your moves using two integers, each between 0 and 2.\nThe first will specify the column, with 0 being the left-most column and 2 being the right-most column.\nThe second will specify the row, with 0 being the top row and 2 being the bottom.\nFor example: playing '12' will place your move in the center column of the bottom row.\n\nUse argument 'start' to run the game.\n\n")
+if args.argument=="start":
+    start()
+
+
+
+
+
 
