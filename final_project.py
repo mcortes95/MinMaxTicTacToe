@@ -196,6 +196,8 @@ def start():
     print("Thanks for playing:\n")
     newgame.displayScore()
 
+start()
+"""
 parser = argparse.ArgumentParser()
 parser.add_argument("argument", help="Use argument 'help' for instructions.\nUse argument 'start' to start the game.")
 args = parser.parse_args()
@@ -205,8 +207,4 @@ if args.argument=="help":
 if args.argument=="start":
     start()
 
-
-
-
-
-
+"""
