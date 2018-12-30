@@ -42,8 +42,7 @@ class PageOne(tk.Frame):
         button1=tk.Button(self,text="Back to Home",command=lambda: controller.show_frame(StartPage))
         button1.pack(side="top",pady=10,padx=10)
 
-        #button2=tk.Button(self,text="To Page Two",command=lambda: controller.show_frame(PageTwo))
-        #button2.pack()
+        
 
 class PageTwo(tk.Frame):
     def __init__(self,parent,controller): 
