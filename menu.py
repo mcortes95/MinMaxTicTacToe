@@ -8,16 +8,18 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.hi_there=tk.Button(self)
-        self.hi_there["text"]="Hello\n"
-        self.hi_there["command"]=self.say_hi
-        self.hi_there.pack(side="top")
-
+        self.one_player=tk.Button(self,text="1 Player", command=self.one_p)
+        self.one_player.pack(side="top")
+        self.two_player=tk.Button(self,text="2 Player",command=self.two_p)
+        self.two_player.pack()
         self.quit=tk.Button(self,text="QUIT",fg="red",command=self.master.destroy)
         self.quit.pack(side="bottom")
 
-    def say_hi(self):
-        print("this is a test")
+    def one_p(self):
+        print("Play a 1 player game.")
+
+    def two_p(self):
+        print("Play a 2 player game.")
 
 root=tk.Tk()
 app=Application(master=root)
