@@ -8,10 +8,18 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.one_player=tk.Button(self,text="1 Player", command=self.one_p)
+        label1 = tk.Label(self,text="Tik Tac Toe",fg="blue")
+        label1.pack()
+        
+        self.one_player=tk.Button(self,text="1 Player",fg="green", command=self.one_p)
         self.one_player.pack(side="top")
-        self.two_player=tk.Button(self,text="2 Player",command=self.two_p)
-        self.two_player.pack()
+        
+        self.two_player=tk.Button(self,text="2 Player",fg="green", command=self.two_p)
+        self.two_player.pack(side="top")
+        
+        self.help=tk.Button(self,text="Help",fg="red")
+        self.help.pack(side="top")
+        
         self.quit=tk.Button(self,text="QUIT",fg="red",command=self.master.destroy)
         self.quit.pack(side="bottom")
 
